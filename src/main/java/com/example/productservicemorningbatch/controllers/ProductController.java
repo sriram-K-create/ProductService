@@ -1,21 +1,36 @@
 package com.example.productservicemorningbatch.controllers;
 
 import com.example.productservicemorningbatch.models.Product;
+import com.example.productservicemorningbatch.services.ProductService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+
+    private ProductService productService;
+
+    ProductController(ProductService productService){
+        this.productService = productService;
+    }
+
+
+
     //localhost:8080/products/30
     @GetMapping("/{id}")
     public Product  getProductById(@PathVariable("id") Long id){
-        return new Product();
+       //Call the FakeStore API to get the product id
+        return productService.getProductById(id);
     }
 
-    //Gert all Products
+    //Get all Products
     @GetMapping
-    public List<Products> getAllProducts(){
-        return new ArrayList<>();
+    public List<Product> getAllProducts(){
+        return new ArrayList<Product>();
     }
 
     //Create a Product
