@@ -21,6 +21,7 @@ public class FakeStoreProductService implements  ProductService{
         product.setTitle(fakeStoreProductDto.getTitle());
         product.setDescription(fakeStoreProductDto.getDescription());
         product.setImage(fakeStoreProductDto.getImage());
+        product.setPrice(fakeStoreProductDto.getPrice());
 
         Category category = new Category();
         category.setTitle(fakeStoreProductDto.getCategory());
@@ -31,8 +32,12 @@ public class FakeStoreProductService implements  ProductService{
     @Override
     public Product getProductById(Long id) {
         FakeStoreProductDto fakeStoreProductDto =
-                restTemplate.getForObject("https://fakestoreapi.com/products/1" + id, FakeStoreProductDto.class);
+                restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
         //Convert FakeStoreProductDto to Product Object
+        if(fakeStoreProductDto ==  null){
+            return null;
+        }
+        //convert fakeStoreProductDto to Product object
         return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
 
 

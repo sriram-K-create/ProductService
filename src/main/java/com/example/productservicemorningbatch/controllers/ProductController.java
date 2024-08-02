@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ProductController {
 
     private ProductService productService;
-
+    //injecting Dependency
     ProductController(ProductService productService){
         this.productService = productService;
     }
@@ -39,15 +39,18 @@ public class ProductController {
         return new Product();
     }
 
+    @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
         return new Product();
     }
 
     //replace a product
+    @PutMapping("/{id}")
     public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product){
         return new Product();
     }
 
+    @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long id){
 
     }
