@@ -6,6 +6,7 @@ import com.example.productservicemorningbatch.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 //Some Companies use iFakeStoreProductService or FakeStoreProductServiceImpl
 @Service
@@ -44,7 +45,15 @@ public class FakeStoreProductService implements  ProductService{
     }
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        List<Product> allProducts = new ArrayList<>();
+        FakeStoreProductDto[] fakeStoreProductDtos = this.restTemplate.getForObject("https://fakestoreapi.com/products/",FakeStoreProductDto[].class);
+                if(fakeStoreProductDtos == null){return allProducts;}
+
+                for(FakeStoreProductDto productDto: fakeStoreProductDtos){
+                    Product product = convertFakeStoreProductDtoToProduct(productDto);
+                    allProducts.add(product);
+                }
+                return allProducts;
     }
 
     @Override

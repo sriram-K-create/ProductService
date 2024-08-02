@@ -30,7 +30,7 @@ public class ProductController {
     //Get all Products
     @GetMapping
     public List<Product> getAllProducts(){
-        return new ArrayList<Product>();
+        return productService.getAllProducts();
     }
 
     //Create a Product

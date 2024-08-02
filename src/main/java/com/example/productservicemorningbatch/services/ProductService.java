@@ -9,9 +9,7 @@ public interface ProductService {
     Product getProductById(Long id);
         //Here we'll call FakestoreAPI to get the Product
 
-    default List<Product> getAllProducts() {
-        return null;
-    }
+    List<Product> getAllProducts();
 
     Product updateProduct();
 
