@@ -6,9 +6,8 @@ import java.util.List;
 
 //write service as an interface to give room for multiple implementation of this
 public interface ProductService {
-    Product getProductById(Long id){
+    Product getProductById(Long id);
         //Here we'll call FakestoreAPI to get the Product
-    }
 
     default List<Product> getAllProducts() {
         return null;
