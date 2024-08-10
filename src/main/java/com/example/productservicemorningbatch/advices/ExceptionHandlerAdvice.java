@@ -2,6 +2,7 @@ package com.example.productservicemorningbatch.advices;
 import com.example.productservicemorningbatch.dtos.ArithmeticExceptionDto;
 import com.example.productservicemorningbatch.dtos.ArrayIndexOutOfBoundExceptionDto;
 import com.example.productservicemorningbatch.dtos.ExceptionDto;
+import com.example.productservicemorningbatch.exceptions.InvalidProductIdException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

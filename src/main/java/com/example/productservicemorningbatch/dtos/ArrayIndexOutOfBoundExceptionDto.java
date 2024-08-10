@@ -1,4 +1,4 @@
-package com.scaler.productservicemorningbatch.dtos;
+package com.example.productservicemorningbatch.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
