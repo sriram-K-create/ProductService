@@ -8,6 +8,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.http.HttpMethod;
+import com.example.productservicemorningbatch.dtos.FakeStoreProductDto;
+import com.example.productservicemorningbatch.exceptions.InvalidProductIdException;
+import com.example.productservicemorningbatch.models.Category;
+import com.example.productservicemorningbatch.models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +38,12 @@ public class FakeStoreProductService implements  ProductService{
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Long id) throws InvalidProductIdException {
         FakeStoreProductDto fakeStoreProductDto =
                 restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
         //Convert FakeStoreProductDto to Product Object
         if(fakeStoreProductDto ==  null){
-            return null;
+            throw new InvalidProductIdException("Invalid productId passed");
         }
         //convert fakeStoreProductDto to Product object
         return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);

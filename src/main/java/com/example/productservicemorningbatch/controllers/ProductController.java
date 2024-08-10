@@ -3,13 +3,12 @@ package com.example.productservicemorningbatch.controllers;
 import com.example.productservicemorningbatch.models.Product;
 import com.example.productservicemorningbatch.services.ProductService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import com.example.productservicemorningbatch.exceptions.ProductControllerSpecificException;
+import com.example.productservicemorningbatch.exceptions.InvalidProductIdException;
 
 import java.util.List;
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/products")
@@ -25,10 +24,10 @@ public class ProductController {
 
     //localhost:8080/products/30
     @GetMapping("/{id}")
-    public ResponseEntity<Product>  getProductById(@PathVariable("id") Long id){
+    public ResponseEntity<Product>  getProductById(@PathVariable("id") Long id) throws InvalidProductIdException{
        //Call the FakeStore API to get the product id
         Product product =  productService.getProductById(id);
-        return new ResponseEntity<>(product, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     //Get all Products
@@ -57,5 +56,9 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long id){
 
+    }
+    @ExceptionHandler(ProductControllerSpecificException.class)
+    public ResponseEntity<Void> handleProductControllerSpecificException() {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
