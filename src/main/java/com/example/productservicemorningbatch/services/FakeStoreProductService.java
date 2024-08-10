@@ -5,6 +5,9 @@ import com.example.productservicemorningbatch.models.Category;
 import com.example.productservicemorningbatch.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.HttpMessageConverterExtractor;
+import org.springframework.web.client.RequestCallback;
+import org.springframework.http.HttpMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +65,15 @@ public class FakeStoreProductService implements  ProductService{
     }
 
     @Override
-    public Product replaceProduct() {
-        return null;
+    public Product replaceProduct(Long id, Product product) {
+        //PUT Method
+        //Replace the Product given id with input Product
+        RequestCallback requestCallback = restTemplate.httpEntityCallback(product, FakeStoreProductDto.class);
+        HttpMessageConverterExtractor<FakeStoreProductDto> responseExtractor = new HttpMessageConverterExtractor(FakeStoreProductDto.class,restTemplate.getMessageConverters());
+        FakeStoreProductDto fakeStoreProductDto =
+                restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PUT, requestCallback, responseExtractor);
+
+        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
     }
 
     @Override
